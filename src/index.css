@@ -695,6 +695,32 @@ p:last-child {
   font-weight: 600;
 }
 
+.forum-error-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+}
+
+.btn-secondary {
+  align-self: flex-start;
+  padding: 0.4rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover {
+  background: #f3f4f6;
+}
+
 .forum-messages {
   display: flex;
   flex-direction: column;

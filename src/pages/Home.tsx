@@ -40,6 +40,7 @@ export function Home() {
 
   // Forum
   const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
   const [msgName, setMsgName] = useState("");
   const [msgText, setMsgText] = useState("");
   const [sending, setSending] = useState(false);
@@ -48,9 +49,12 @@ export function Home() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const loadMessages = useCallback(() => {
+    setLoading(true);
+    setLoadErr(null);
     fetchMessages()
-      .then(setMessages)
-      .catch((e) => setLoadErr(e instanceof Error ? e.message : "Laden mislukt."));
+      .then((m) => setMessages(m))
+      .catch((e) => setLoadErr(e instanceof Error ? e.message : "Laden mislukt."))
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -196,10 +200,18 @@ export function Home() {
           </button>
         </form>
 
-        {loadErr && <p className="forum-error">{loadErr}</p>}
+        {loadErr && (
+          <div className="forum-error-box">
+            <p className="forum-error">{loadErr}</p>
+            <button type="button" className="btn-secondary" onClick={loadMessages}>
+              Opnieuw proberen
+            </button>
+          </div>
+        )}
 
         <div className="forum-messages">
-          {messages.length === 0 && !loadErr && (
+          {loading && !loadErr && <p className="forum-empty">Laden...</p>}
+          {!loading && messages.length === 0 && !loadErr && (
             <p className="forum-empty">Nog geen reacties.</p>
           )}
           {messages.map((msg) => (
