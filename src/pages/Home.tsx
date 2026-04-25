@@ -7,8 +7,7 @@ const wheelOptions = [
   "je hebt een tip gewonnen",
 ] as const;
 
-const secretTip =
-  "Tip: als AD ineens begint over 'lekker praktisch reizen', moet je juist extra wantrouwig worden.";
+const secretTip = "we gaan waarschijnlijk meer fietsen dan je denkt";
 
 export function Home() {
   const [name, setName] = useState("");
