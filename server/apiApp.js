@@ -9,8 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = process.env.DATA_PATH || path.join(__dirname, "data.json");
 const ADMIN_KEY = process.env.ADMIN_KEY || "verander-mij-bij-start";
 
-/** @type {{ hints: { id: string, text: string, createdAt: string }[], polls: { id: string, question: string, options: { id: string, label: string }[], votes: { voterName: string, optionId: string, votedAt: string }[] }[] }} */
-const empty = { hints: [], polls: [] };
+const empty = { hints: [], polls: [], messages: [] };
 
 async function loadData() {
   if (!existsSync(DATA_PATH)) {
@@ -152,6 +151,37 @@ export function createApiApp() {
       res.json({ ok: true, poll });
     } catch {
       res.status(500).json({ error: "Stemmen mislukt." });
+    }
+  });
+
+  app.get("/api/messages", async (_req, res) => {
+    try {
+      const data = await loadData();
+      const messages = data.messages || [];
+      res.json({ messages: [...messages].reverse() });
+    } catch {
+      res.status(500).json({ error: "Berichten konden niet geladen worden." });
+    }
+  });
+
+  app.post("/api/messages", async (req, res) => {
+    const name = String(req.body?.name ?? "").trim();
+    const text = String(req.body?.text ?? "").trim();
+    if (!name || name.length > 80) {
+      return res.status(400).json({ error: "Naam is verplicht (max 80 tekens)." });
+    }
+    if (!text || text.length > 2000) {
+      return res.status(400).json({ error: "Bericht is verplicht (max 2000 tekens)." });
+    }
+    try {
+      const data = await loadData();
+      if (!data.messages) data.messages = [];
+      const message = { id: randomId(), name, text, createdAt: new Date().toISOString() };
+      data.messages.push(message);
+      await saveData(data);
+      res.json({ message });
+    } catch {
+      res.status(500).json({ error: "Opslaan mislukt." });
     }
   });
 

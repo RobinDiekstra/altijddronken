@@ -546,8 +546,11 @@ p:last-child {
   height: 100%;
   border: 8px solid #111827;
   border-radius: 50%;
+  /* No `from` offset: yellow starts at top (0°) going clockwise.
+     Yellow  0–120°  centre at  60° (≈ 2 o'clock)
+     Orange 120–240° centre at 180° (≈ 6 o'clock)
+     White  240–360° centre at 300° (≈ 10 o'clock) */
   background: conic-gradient(
-    from -90deg,
     #facc15 0deg 120deg,
     #fb923c 120deg 240deg,
     #ffffff 240deg 360deg
@@ -571,42 +574,46 @@ p:last-child {
   box-shadow: 0 8px 24px rgba(17, 24, 39, 0.22);
 }
 
+/* Labels rotate with the wheel — placed at the visual centre of each segment.
+   Gradient has no `from` offset, so:
+     Yellow  centre =  60° (≈ 2 o'clock)  →  top ≈ 35 %, left ≈ 76 %
+     Orange  centre = 180° (≈ 6 o'clock)  →  top ≈ 80 %, left   50 %
+     White   centre = 300° (≈ 10 o'clock) →  top ≈ 35 %, left ≈ 24 %
+   All labels use translate(-50%,-50%) to centre on that point.           */
 .wheel-label {
   position: absolute;
-  display: grid;
-  place-items: center;
-  width: 34%;
-  min-height: 52px;
+  width: 30%;
   color: #111827;
-  font-size: clamp(0.68rem, 2.3vw, 0.82rem);
+  font-size: clamp(0.6rem, 2vw, 0.78rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   text-align: center;
   text-transform: uppercase;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  border-radius: 10px;
+  padding: 0.35rem 0.4rem;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.1);
+  transform: translate(-50%, -50%);
 }
 
-.wheel-label span {
-  display: block;
-  padding: 0.45rem 0.55rem;
-  background: rgba(255, 255, 255, 0.74);
-  border: 1px solid rgba(17, 24, 39, 0.12);
-  border-radius: 999px;
-  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
-}
-
-.wheel-label-one {
-  right: 7%;
+/* Yellow segment: centre at 60° from top */
+.wheel-label-yellow {
   top: 35%;
+  left: 76%;
 }
 
-.wheel-label-two {
-  left: 33%;
-  top: 9%;
+/* Orange segment: centre at 180° (bottom) */
+.wheel-label-orange {
+  top: 80%;
+  left: 50%;
 }
 
-.wheel-label-three {
-  left: 8%;
-  bottom: 19%;
+/* White segment: centre at 300° from top */
+.wheel-label-white {
+  top: 35%;
+  left: 24%;
 }
 
 .wheel-button {
@@ -632,6 +639,108 @@ p:last-child {
   font-size: 1.1rem;
   font-weight: 700;
 }
+
+/* ─── Forum ──────────────────────────────────────────────────────────────── */
+
+.forum-card {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 560px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(17, 24, 39, 0.07);
+}
+
+.forum-card h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.forum-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.forum-form input,
+.forum-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #f9fafb;
+  resize: vertical;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.forum-form input:focus,
+.forum-form textarea:focus {
+  outline: none;
+  border-color: #facc15;
+}
+
+.forum-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.forum-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.forum-empty {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.forum-msg {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+}
+
+.forum-msg-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.forum-msg-header strong {
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.forum-msg-time {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.forum-msg-text {
+  margin: 0;
+  font-size: 0.93rem;
+  color: #374151;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ─── Media ──────────────────────────────────────────────────────────────── */
 
 @media (min-width: 600px) {
   .quick-grid {
