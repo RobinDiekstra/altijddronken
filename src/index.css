@@ -643,6 +643,8 @@ p:last-child {
 /* ─── Forum ──────────────────────────────────────────────────────────────── */
 
 .forum-card {
+  position: relative;
+  z-index: 2;
   background: #ffffff;
   border: 1px solid rgba(17, 24, 39, 0.1);
   border-radius: 20px;
