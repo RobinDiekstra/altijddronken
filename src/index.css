@@ -96,7 +96,7 @@ a:hover {
   font-weight: 500;
 }
 
-.nav a.navlink-active {
+.nav a.active {
   color: var(--text);
   text-decoration: none;
   border-bottom: 2px solid var(--accent);
@@ -851,4 +851,133 @@ p:last-child {
   .row-inline > * {
     flex: 1;
   }
+}
+
+/* ─── Shared page layout ──────────────────────────────────────────────────── */
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 1rem 0 2rem;
+}
+
+.page-title {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.page-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ─── Paklijst ────────────────────────────────────────────────────────────── */
+
+.paklijst {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.paklijst-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 8px 28px rgba(17, 24, 39, 0.06);
+}
+
+.paklijst-emoji {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  width: 2.4rem;
+  text-align: center;
+}
+
+.paklijst-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* ─── Programma ───────────────────────────────────────────────────────────── */
+
+.programma-days {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.programma-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(17, 24, 39, 0.06);
+}
+
+.programma-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #111827, #1f2937);
+  color: #ffffff;
+}
+
+.programma-date {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.programma-day {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.programma-slots {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.programma-slot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.programma-slot:last-child {
+  border-bottom: none;
+}
+
+.programma-time {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 3.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.programma-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.programma-slot--empty .programma-label {
+  color: var(--muted);
+  font-weight: 400;
 }
