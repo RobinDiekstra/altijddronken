@@ -658,19 +658,6 @@ p:last-child {
   color: #ffffff;
 }
 
-.new-tip-section h2 {
-  margin: 0.75rem 0 0.25rem;
-  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.new-tip-subtitle {
-  color: #9ca3af;
-  font-size: 0.95rem;
-  margin: 0 0 1rem;
-}
-
 .new-tip-badge {
   display: inline-block;
   font-size: 0.75rem;
@@ -690,11 +677,11 @@ p:last-child {
 
 .europe-map {
   width: 100%;
-  max-width: 660px;
-  margin: 0 auto;
+  height: auto;
+  margin: 0.75rem auto 0;
   display: block;
   border-radius: 16px;
-  background: #0f172a;
+  overflow: hidden;
 }
 
 .capital-pin circle {
